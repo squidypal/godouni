@@ -38,6 +38,8 @@
 #include "core/templates/iterable.h"
 #include "scene/scene_string_names.h" // IWYU pragma: export. Make available to all Nodes.
 
+class GameObject;
+class GameObject2D;
 class MultiplayerAPI;
 class NodePath;
 class Resource;
@@ -541,6 +543,7 @@ public:
 
 	virtual void reparent(RequiredParam<Node> rp_parent, bool p_keep_global_transform = true);
 	Node *get_parent() const;
+	Node *get_game_object() const;
 	Node *find_parent(const String &p_pattern) const;
 
 	void set_unique_scene_id(int32_t p_unique_id);
