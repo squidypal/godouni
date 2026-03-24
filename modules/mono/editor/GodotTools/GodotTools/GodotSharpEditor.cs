@@ -99,6 +99,50 @@ namespace GodotTools
                     {
                         errorMessage = "Failed to save solution. Exception message: ".TTR() + e.Message;
                     }
+
+                    // Register the local nupkgs directory as a global NuGet source
+                    // so the MSBuild SDK resolver can find the Godot.NET.Sdk package.
+                    try
+                    {
+                        string nupkgsDir = Path.Combine(GodotSharpDirs.DataEditorToolsDir, "nupkgs");
+                        if (System.IO.Directory.Exists(nupkgsDir))
+                        {
+                            string? dotnetPath = DotNetFinder.FindDotNetExe();
+                            if (dotnetPath != null)
+                            {
+                                // Check if the source is already registered.
+                                var listProcess = new System.Diagnostics.Process();
+                                listProcess.StartInfo = new System.Diagnostics.ProcessStartInfo(dotnetPath, "nuget list source")
+                                {
+                                    RedirectStandardOutput = true,
+                                    UseShellExecute = false,
+                                    CreateNoWindow = true,
+                                };
+                                listProcess.Start();
+                                string listOutput = listProcess.StandardOutput.ReadToEnd();
+                                listProcess.WaitForExit();
+
+                                if (!listOutput.Contains(nupkgsDir))
+                                {
+                                    var addProcess = new System.Diagnostics.Process();
+                                    addProcess.StartInfo = new System.Diagnostics.ProcessStartInfo(dotnetPath,
+                                        $"nuget add source \"{nupkgsDir}\" --name \"Local Godot SDK\"")
+                                    {
+                                        RedirectStandardOutput = true,
+                                        RedirectStandardError = true,
+                                        UseShellExecute = false,
+                                        CreateNoWindow = true,
+                                    };
+                                    addProcess.Start();
+                                    addProcess.WaitForExit();
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        GD.PushWarning("Failed to register local NuGet source for Godot SDK: " + e.Message);
+                    }
                 }
                 else
                 {

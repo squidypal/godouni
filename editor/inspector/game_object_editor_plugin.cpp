@@ -487,7 +487,29 @@ void GameObjectComponentList::_on_script_file_selected(const String &p_path) {
 	ERR_FAIL_COND_MSG(scr.is_null(), "Failed to load script: " + p_path);
 
 	StringName base_type = scr->get_instance_base_type();
-	ERR_FAIL_COND_MSG(base_type == StringName(), "Script does not have a valid base type.");
+
+	if (base_type == StringName()) {
+		// get_instance_base_type() can fail for C# scripts when the type_info
+		// hasn't been resolved yet. Fall back to the language's global class
+		// metadata which resolves the base type without needing instantiation.
+		ScriptLanguage *lang = scr->get_language();
+		if (lang) {
+			String base_str;
+			lang->get_global_class_name(p_path, &base_str);
+			if (!base_str.is_empty()) {
+				// Walk up the script class chain to find the native base.
+				StringName resolved = base_str;
+				while (ScriptServer::is_global_class(resolved)) {
+					resolved = ScriptServer::get_global_class_native_base(resolved);
+				}
+				if (ClassDB::class_exists(resolved)) {
+					base_type = resolved;
+				}
+			}
+		}
+	}
+
+	ERR_FAIL_COND_MSG(base_type == StringName(), "Could not determine script base type. If this is a C# script, make sure the project has been built.");
 
 	Object *obj = ClassDB::instantiate(base_type);
 	ERR_FAIL_NULL_MSG(obj, "Failed to instantiate base type: " + String(base_type));
@@ -500,8 +522,9 @@ void GameObjectComponentList::_on_script_file_selected(const String &p_path) {
 		ERR_FAIL_MSG("Script base type is not a Node-derived type.");
 	}
 
-	child->set_name(Node::adjust_name_casing(p_path.get_file().get_basename()));
 	child->set_script(scr);
+
+	child->set_name(Node::adjust_name_casing(p_path.get_file().get_basename()));
 
 	Node *edited_scene = EditorNode::get_singleton()->get_edited_scene();
 	ERR_FAIL_NULL(edited_scene);
