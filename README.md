@@ -31,6 +31,12 @@ To:
 ```
 It keeps switching up depending on the PC used, so keep this in mind.
 
+Also when downloading new versions make sure to clear your NuGet cache:
+```py
+dotnet nuget locals all --clear
+```
+#### Avoid using old projects on new verisons.
+
 ## What's Different?
 
 ### GameObject Node
@@ -119,6 +125,14 @@ These will all return the GameObject's node.
 #### C# Version
 ```bash
 scons platform=windows target=editor module_mono_enabled=yes -j12
+```
+To use the Coding Utility you'll need to build the GodotSharp assemblies seperately:
+```py
+python modules/mono/build_scripts/build_assemblies.py --godot-output-dir=bin
+```
+After that clear your NuGet cache:
+```py
+dotnet nuget locals all --clear
 ```
 
 #### GDScript Version:
