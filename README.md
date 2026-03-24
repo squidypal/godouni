@@ -1,5 +1,6 @@
 # Godouni
 <img width="100" height="100" alt="GodouniLogo" src="https://github.com/user-attachments/assets/1a92ce67-62c7-4554-882d-b15dfd99bc79" />
+Pronounced "Go-doe-you-knee"
 
 **A Godot fork that brings Unity-style workflows to Godot engine.**
 
