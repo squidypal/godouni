@@ -45,7 +45,7 @@ When you add components, they automatically arrange themselves into the correct 
 - **CollisionShape2D / CollisionPolygon2D** — auto-nests under the first 2D physics body
 - **Sprite2D** — auto-nests under the first 2D physics body
 
-It also works in reverse — when you add a **physics body** to a GameObject that already has loose collision shapes or meshes, those existing components get reparented under the new body automatically.
+It also works in reverse, when you add a **physics body** to a GameObject that already has loose collision shapes or meshes, those existing components get reparented under the new body automatically.
 
 ### Hierarchy Warnings
 
