@@ -67,6 +67,12 @@
 #include "scene/3d/cpu_particles_3d.h"
 #include "scene/3d/light_3d.h"
 #include "scene/3d/mesh_instance_3d.h"
+#include "scene/3d/physics/collision_shape_3d.h"
+#include "scene/3d/physics/static_body_3d.h"
+#include "scene/resources/3d/box_shape_3d.h"
+#include "scene/resources/3d/capsule_shape_3d.h"
+#include "scene/resources/3d/cylinder_shape_3d.h"
+#include "scene/resources/3d/sphere_shape_3d.h"
 #include "scene/animation/animation_tree.h"
 #include "scene/audio/audio_stream_player.h"
 #include "scene/main/game_object.h"
@@ -1580,41 +1586,58 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 		case TOOL_CREATE_CYLINDER:
 		case TOOL_CREATE_PLANE:
 		case TOOL_CREATE_QUAD: {
-			// Create a GameObject with a MeshInstance3D child containing the primitive mesh.
+			// Create a GameObject with a MeshInstance3D child containing the primitive mesh,
+			// and a StaticBody3D + CollisionShape3D for default collision.
 			GameObject *go = memnew(GameObject);
 			MeshInstance3D *mesh_instance = memnew(MeshInstance3D);
+			StaticBody3D *static_body = memnew(StaticBody3D);
+			CollisionShape3D *collision_shape = memnew(CollisionShape3D);
 
 			Ref<Mesh> mesh;
+			Ref<Shape3D> shape;
 			switch (p_tool) {
 				case TOOL_CREATE_CUBE: {
 					go->set_name("Cube");
 					mesh = Ref<BoxMesh>(memnew(BoxMesh));
+					shape = Ref<BoxShape3D>(memnew(BoxShape3D));
 				} break;
 				case TOOL_CREATE_SPHERE: {
 					go->set_name("Sphere");
 					mesh = Ref<SphereMesh>(memnew(SphereMesh));
+					shape = Ref<SphereShape3D>(memnew(SphereShape3D));
 				} break;
 				case TOOL_CREATE_CAPSULE: {
 					go->set_name("Capsule");
 					mesh = Ref<CapsuleMesh>(memnew(CapsuleMesh));
+					shape = Ref<CapsuleShape3D>(memnew(CapsuleShape3D));
 				} break;
 				case TOOL_CREATE_CYLINDER: {
 					go->set_name("Cylinder");
 					mesh = Ref<CylinderMesh>(memnew(CylinderMesh));
+					shape = Ref<CylinderShape3D>(memnew(CylinderShape3D));
 				} break;
 				case TOOL_CREATE_PLANE: {
 					go->set_name("Plane");
 					mesh = Ref<PlaneMesh>(memnew(PlaneMesh));
+					Ref<BoxShape3D> box_shape = memnew(BoxShape3D);
+					box_shape->set_size(Vector3(2.0, 0.01, 2.0));
+					shape = box_shape;
 				} break;
 				case TOOL_CREATE_QUAD: {
 					go->set_name("Quad");
 					mesh = Ref<QuadMesh>(memnew(QuadMesh));
+					Ref<BoxShape3D> box_shape = memnew(BoxShape3D);
+					box_shape->set_size(Vector3(1.0, 1.0, 0.01));
+					shape = box_shape;
 				} break;
 				default:
 					break;
 			}
 			mesh_instance->set_mesh(mesh);
 			mesh_instance->set_name("MeshInstance3D");
+			static_body->set_name("StaticBody3D");
+			collision_shape->set_shape(shape);
+			collision_shape->set_name("CollisionShape3D");
 
 			if (GLOBAL_GET("editor/naming/node_name_casing").operator int() != NAME_CASING_PASCAL_CASE) {
 				go->set_name(Node::adjust_name_casing(go->get_name()));
@@ -1632,6 +1655,10 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 				undo_redo->add_do_method(go, "set_owner", get_tree()->get_edited_scene_root());
 				undo_redo->add_do_method(go, "add_child", mesh_instance, true);
 				undo_redo->add_do_method(mesh_instance, "set_owner", get_tree()->get_edited_scene_root());
+				undo_redo->add_do_method(go, "add_child", static_body, true);
+				undo_redo->add_do_method(static_body, "set_owner", get_tree()->get_edited_scene_root());
+				undo_redo->add_do_method(static_body, "add_child", collision_shape, true);
+				undo_redo->add_do_method(collision_shape, "set_owner", get_tree()->get_edited_scene_root());
 				undo_redo->add_do_reference(go);
 				undo_redo->add_undo_method(selected, "remove_child", go);
 				undo_redo->commit_action();
@@ -1639,6 +1666,10 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 				add_root_node(go);
 				go->add_child(mesh_instance, true);
 				mesh_instance->set_owner(get_tree()->get_edited_scene_root());
+				go->add_child(static_body, true);
+				static_body->set_owner(get_tree()->get_edited_scene_root());
+				static_body->add_child(collision_shape, true);
+				collision_shape->set_owner(get_tree()->get_edited_scene_root());
 			}
 
 			EditorNode::get_singleton()->edit_node(go);
