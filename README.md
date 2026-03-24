@@ -81,10 +81,7 @@ GameObject (selected in scene tree)
 
 ### What's planned?
 
-Don't expect this to be maintained along side actual godot but there are some things I want to do with this:
-
-- Total Renaming to Unity terms
-- That's about it actually
+Don't expect this to be maintained along side actual Godot but I would like to add web build support when that is added officially to .net Godot.
 
 ## Building
 
