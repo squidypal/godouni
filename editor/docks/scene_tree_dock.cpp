@@ -1621,6 +1621,10 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			}
 
 			Node *selected = scene_tree->get_selected();
+			Node *root = get_tree()->get_edited_scene_root();
+			if (!selected && root) {
+				selected = root;
+			}
 			if (selected) {
 				EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
 				undo_redo->create_action(TTR("Create 3D Object"));
@@ -1670,6 +1674,10 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			}
 
 			Node *selected = scene_tree->get_selected();
+			Node *root = get_tree()->get_edited_scene_root();
+			if (!selected && root) {
+				selected = root;
+			}
 			if (selected) {
 				EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
 				undo_redo->create_action(TTR("Create Light"));
@@ -1701,6 +1709,10 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			}
 
 			Node *selected = scene_tree->get_selected();
+			Node *root = get_tree()->get_edited_scene_root();
+			if (!selected && root) {
+				selected = root;
+			}
 			if (selected) {
 				EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
 				undo_redo->create_action(TTR("Create Camera"));
@@ -1732,6 +1744,10 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			}
 
 			Node *selected = scene_tree->get_selected();
+			Node *root = get_tree()->get_edited_scene_root();
+			if (!selected && root) {
+				selected = root;
+			}
 			if (selected) {
 				EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
 				undo_redo->create_action(TTR("Create Audio Source"));
@@ -1763,6 +1779,10 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			}
 
 			Node *selected = scene_tree->get_selected();
+			Node *root = get_tree()->get_edited_scene_root();
+			if (!selected && root) {
+				selected = root;
+			}
 			if (selected) {
 				EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
 				undo_redo->create_action(TTR("Create Particle System"));
