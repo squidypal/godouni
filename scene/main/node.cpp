@@ -38,6 +38,8 @@ STATIC_ASSERT_INCOMPLETE_TYPE(class, Shader);
 STATIC_ASSERT_INCOMPLETE_TYPE(class, OS);
 STATIC_ASSERT_INCOMPLETE_TYPE(class, Engine);
 
+#include "scene/main/game_object.h"
+
 #include "core/config/project_settings.h"
 #include "core/io/resource_loader.h"
 #include "core/object/message_queue.h"
@@ -2089,6 +2091,17 @@ Node *Node::get_parent() const {
 	return data.parent;
 }
 
+Node *Node::get_game_object() const {
+	Node *current = data.parent;
+	while (current) {
+		if (Object::cast_to<GameObject>(current) || Object::cast_to<GameObject2D>(current)) {
+			return current;
+		}
+		current = current->data.parent;
+	}
+	return nullptr;
+}
+
 Node *Node::find_parent(const String &p_pattern) const {
 	ERR_THREAD_GUARD_V(nullptr);
 	Node *p = data.parent;
@@ -3785,6 +3798,7 @@ void Node::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_node", "path"), &Node::get_node);
 	ClassDB::bind_method(D_METHOD("get_node_or_null", "path"), &Node::get_node_or_null);
 	ClassDB::bind_method(D_METHOD("get_parent"), &Node::get_parent);
+	ClassDB::bind_method(D_METHOD("get_game_object"), &Node::get_game_object);
 	ClassDB::bind_method(D_METHOD("find_child", "pattern", "recursive", "owned"), &Node::find_child, DEFVAL(true), DEFVAL(true));
 	ClassDB::bind_method(D_METHOD("find_children", "pattern", "type", "recursive", "owned"), &Node::find_children, DEFVAL(""), DEFVAL(true), DEFVAL(true));
 	ClassDB::bind_method(D_METHOD("find_parent", "pattern"), &Node::find_parent);

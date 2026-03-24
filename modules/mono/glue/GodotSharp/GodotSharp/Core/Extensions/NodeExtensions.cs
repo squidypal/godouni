@@ -195,5 +195,31 @@ namespace Godot
         {
             return GetParent() as T;
         }
+
+        /// <summary>
+        /// Returns the nearest ancestor <see cref="GameObject"/> or <see cref="GameObject2D"/>
+        /// that this node belongs to. This is a convenience property for scripts that are
+        /// attached as child nodes of a GameObject, similar to Unity's
+        /// <c>MonoBehaviour.gameObject</c>.
+        /// </summary>
+        /// <returns>
+        /// The owning GameObject node, or <see langword="null"/> if none is found.
+        /// </returns>
+        public Node gameObject
+        {
+            get
+            {
+                Node current = GetParent();
+                while (current != null)
+                {
+                    if (current is GameObject || current is GameObject2D)
+                    {
+                        return current;
+                    }
+                    current = current.GetParent();
+                }
+                return null;
+            }
+        }
     }
 }
