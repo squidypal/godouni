@@ -1561,6 +1561,10 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			}
 
 			Node *selected = scene_tree->get_selected();
+			Node *root = get_tree()->get_edited_scene_root();
+			if (!selected && root) {
+				selected = root;
+			}
 			if (selected) {
 				// Add as child of selected node.
 				EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
