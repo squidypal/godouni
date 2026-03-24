@@ -83,6 +83,24 @@ GameObject (selected in scene tree)
 
 Don't expect this to be maintained along side actual Godot but I would like to add web build support when that is added officially to .net Godot.
 
+### Coding Utility
+The GameObject system allows you to attatch multiple scripts to a GameObject, in reality this is adding these scripts as children of the GameObject node.
+To make this system easier to use, when you need to access the GameObject the scripts are "attatched" to:
+
+`C#`
+```cs
+gameObject;
+```
+```cs
+GetGameObject(); 
+```
+`GDScript`
+```gdscript
+get_game_object()
+```
+
+These will all return the GameObject's node.
+
 ## Building
 
 #### C# Version
