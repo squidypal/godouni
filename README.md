@@ -97,21 +97,6 @@ scons platform=windows target=editor -j$(nproc)
 
 Replace `windows` with `linuxbsd` or `macos` as needed. See the [Godot docs](https://docs.godotengine.org/en/stable/contributing/development/compiling/) for full build instructions.
 
-## Changes from Upstream Godot
-
-| File | Change |
-|------|--------|
-| `scene/main/game_object.h/cpp` | New `GameObject` and `GameObject2D` node classes |
-| `editor/inspector/game_object_editor_plugin.h/cpp` | Inspector plugin with component list, auto-organization, and warnings |
-| `editor/docks/scene_tree_dock.h/cpp` | Right-click menu with Unity-style create options (3D objects, lights, camera, audio, particles) |
-| `editor/icons/GameObject.svg` | Cube icon for 3D GameObjects |
-| `editor/icons/GameObject2D.svg` | Icon for 2D GameObjects |
-| `scene/register_scene_types.cpp` | Registers `GameObject` and `GameObject2D` in ClassDB |
-| `editor/register_editor_types.cpp` | Registers the editor plugin |
-| `Branding/*`, `icon.*`, `logo.*`, `main/splash*` | Godouni branding and splash screen |
-| `editor/editor_node.cpp`, `editor/gui/editor_about.cpp`, `editor/project_manager/project_manager.cpp` | Branding references |
-| `version.py` | Version info |
-
 ## License
 
 Same as Godot Engine — [MIT License](LICENSE.txt).
