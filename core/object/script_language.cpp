@@ -30,11 +30,14 @@
 
 #include "script_language.h"
 
+#include "core/config/engine.h"
 #include "core/config/project_settings.h"
 #include "core/core_bind.h"
 #include "core/debugger/engine_debugger.h"
 #include "core/debugger/script_debugger.h"
 #include "core/io/resource_loader.h"
+#include "core/object/callable_mp.h"
+#include "core/object/class_db.h"
 #include "core/templates/sort_array.h"
 
 ScriptLanguage *ScriptServer::_languages[MAX_LANGUAGES];
@@ -45,7 +48,6 @@ thread_local bool ScriptServer::thread_entered = false;
 
 bool ScriptServer::scripting_enabled = true;
 bool ScriptServer::reload_scripts_on_save = false;
-ScriptEditRequestFunction ScriptServer::edit_request_func = nullptr;
 
 // These need to be the last static variables in this file, since we're exploiting the reverse-order destruction of static variables.
 static bool is_program_exiting = false;
@@ -172,6 +174,7 @@ void Script::_bind_methods() {
 
 	ClassDB::bind_method(D_METHOD("get_global_name"), &Script::get_global_name);
 
+	ClassDB::bind_method(D_METHOD("has_script_method", "method_name"), &Script::has_method);
 	ClassDB::bind_method(D_METHOD("has_script_signal", "signal_name"), &Script::has_script_signal);
 
 	ClassDB::bind_method(D_METHOD("get_script_property_list"), &Script::_get_script_property_list);

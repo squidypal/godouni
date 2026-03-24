@@ -1,76 +1,105 @@
-# Godot Engine
+# Godouni
 
-<p align="center">
-  <a href="https://godotengine.org">
-    <img src="logo_outlined.svg" width="400" alt="Godot Engine logo">
-  </a>
-</p>
+<img width="100" height="100" alt="GodouniLogo" src="https://github.com/user-attachments/assets/1a92ce67-62c7-4554-882d-b15dfd99bc79" />
 
-## 2D and 3D cross-platform game engine
+Pronounced "Go-doe-you-knee"
 
-**[Godot Engine](https://godotengine.org) is a feature-packed, cross-platform
-game engine to create 2D and 3D games from a unified interface.** It provides a
-comprehensive set of [common tools](https://godotengine.org/features), so that
-users can focus on making games without having to reinvent the wheel. Games can
-be exported with one click to a number of platforms, including the major desktop
-platforms (Linux, macOS, Windows), mobile platforms (Android, iOS), as well as
-Web-based platforms and [consoles](https://godotengine.org/consoles).
+**A Godot fork that brings Unity-style workflows to Godot engine.**
 
-## Free, open source and community-driven
+<img width="444" height="360" alt="Screenshot 2026-03-23 194109" src="https://github.com/user-attachments/assets/0117b6fc-8e50-4973-aea3-8b8050c3c416" />
+<img width="95" height="370" alt="Screenshot 2026-03-23 224452" src="https://github.com/user-attachments/assets/8f8b1ab8-c894-4322-8fee-6c3dcaff4b56" />
+<img width="397" height="158" alt="Screenshot 2026-03-23 224248" src="https://github.com/user-attachments/assets/bba33b20-85b5-4f64-a0a4-d1e054e61456" />
+<img width="280" height="165" alt="image" src="https://github.com/user-attachments/assets/863655c8-7d31-4bd1-aee3-9d03353dc400" />
+<img width="333" height="70" alt="Screenshot 2026-03-23 224521" src="https://github.com/user-attachments/assets/592766c8-0e68-4a81-85a5-72714a588f56" />
 
-Godot is completely free and open source under the very permissive [MIT license](https://godotengine.org/license).
-No strings attached, no royalties, nothing. The users' games are theirs, down
-to the last line of engine code. Godot's development is fully independent and
-community-driven, empowering users to help shape their engine to match their
-expectations. It is supported by the [Godot Foundation](https://godot.foundation/)
-not-for-profit.
+### Why?
 
-Before being open sourced in [February 2014](https://github.com/godotengine/godot/commit/0b806ee0fc9097fa7bda7ac0109191c9c5e0a1ac),
-Godot had been developed by [Juan Linietsky](https://github.com/reduz) and
-[Ariel Manzur](https://github.com/punto-) for several years as an in-house
-engine, used to publish several work-for-hire titles.
+Just for shits and giggles
 
-![Screenshot of a 3D scene in the Godot Engine editor](https://raw.githubusercontent.com/godotengine/godot-design/master/screenshots/editor_tps_demo_1920x1080.jpg)
+Godouni adds a GameObject + Component workflow on top of Godot's node system, making the engine feel more familiar to developers coming from Unity without changing any existing Godot functionality.
 
-## Getting the engine
+## What's Different?
 
-### Binary downloads
+### GameObject Node
 
-Official binaries for the Godot editor and the export templates can be found
-[on the Godot website](https://godotengine.org/download).
+A new `GameObject` (3D) and `GameObject2D` node type. They act as containers whose children are treated as **Components**.
 
-### Compiling from source
+### Component Inspector
 
-[See the official docs](https://docs.godotengine.org/en/latest/engine_details/development/compiling)
-for compilation instructions for every supported platform.
+When you select a GameObject, the inspector shows a dedicated **Components** panel:
 
-## Community and contributing
+- Lists all child nodes as components with their icons and names
+- **Fold/unfold** each component to show or hide its properties
+- **Nested display** - components that are auto-organized under other components show up indented to reflect the hierarchy
+- **Delete button** on each component to remove it
+- **"Add Component" button** opens the node picker to attach new components
+- **"Add Script" button** lets you attach a script file as a component
 
-Godot is not only an engine but an ever-growing community of users and engine
-developers. The main community channels are listed [on the homepage](https://godotengine.org/community).
+### Auto-Organizing Components
 
-The best way to get in touch with the core engine developers is to join the
-[Godot Contributors Chat](https://chat.godotengine.org).
+When you add components, they automatically arrange themselves into the correct Godot hierarchy:
 
-To get started contributing to the project, see the [contributing guide](CONTRIBUTING.md).
-This document also includes guidelines for reporting bugs.
+- **CollisionShape3D / CollisionPolygon3D** — auto-nests under the first physics body (RigidBody3D, StaticBody3D, CharacterBody3D, Area3D)
+- **MeshInstance3D** — auto-nests under the first physics body
+- **VehicleWheel3D** — auto-nests under VehicleBody3D
+- **CollisionShape2D / CollisionPolygon2D** — auto-nests under the first 2D physics body
+- **Sprite2D** — auto-nests under the first 2D physics body
 
-## Documentation and demos
+It also works in reverse, when you add a **physics body** to a GameObject that already has loose collision shapes or meshes, those existing components get reparented under the new body automatically.
 
-The official documentation is hosted on [Read the Docs](https://docs.godotengine.org).
-It is maintained by the Godot community in its own [GitHub repository](https://github.com/godotengine/godot-docs).
+### Hierarchy Warnings
 
-The [class reference](https://docs.godotengine.org/en/latest/classes/)
-is also accessible from the Godot editor.
+The inspector shows yellow warnings when components need attention:
 
-We also maintain official demos in their own [GitHub repository](https://github.com/godotengine/godot-demo-projects)
-as well as a list of [awesome Godot community resources](https://github.com/godotengine/awesome-godot).
+- Physics body has no collision shape
+- Collision shape is loose (not under a physics body)
+- VehicleWheel3D without a VehicleBody3D
 
-There are also a number of other
-[learning resources](https://docs.godotengine.org/en/latest/community/tutorials.html)
-provided by the community, such as text and video tutorials, demos, etc.
-Consult the [community channels](https://godotengine.org/community)
-for more information.
+### Right-Click Create Menu
 
-[![Code Triagers Badge](https://www.codetriage.com/godotengine/godot/badges/users.svg)](https://www.codetriage.com/godotengine/godot)
-[![Translate on Weblate](https://hosted.weblate.org/widgets/godot-engine/-/godot/svg-badge.svg)](https://hosted.weblate.org/engage/godot-engine/?utm_source=widget)
+Right-clicking in the scene tree gives you Unity-style quick create options:
+
+- **Create Empty** — empty GameObject
+- **Create Empty 2D** — empty GameObject2D
+- **3D Object** — Cube, Sphere, Capsule, Cylinder, Plane, Quad (creates a GameObject with a MeshInstance3D and primitive mesh already attached)
+- **Light** — Directional Light, Point Light, Spot Light
+- **Camera** — GameObject with Camera3D
+- **Audio Source** — GameObject with AudioStreamPlayer3D
+- **Particle System** — GameObject with CPUParticles3D
+
+### How It Works
+
+Under the hood, components are just regular Godot nodes, children of the GameObject. The inspector provides a Unity-like UI layer on top of Godot's existing parent/child system. Everything is fully compatible with standard Godot features like signals, scenes, and GDScript.
+
+```
+GameObject (selected in scene tree)
+  +-- RigidBody3D           <-- component
+  |     +-- MeshInstance3D   <-- auto-organized under the body
+  |     +-- CollisionShape3D <-- auto-organized under the body
+  +-- MyScript               <-- script component
+```
+
+### What's planned?
+
+Don't expect this to be maintained along side actual Godot but I would like to add web build support when that is added officially to .net Godot.
+
+## Building
+
+#### C# Version
+```bash
+scons platform=windows target=editor module_mono_enabled=yes -j12
+```
+
+#### GDScript Version:
+```bash
+scons platform=windows target=editor -j$(nproc)
+```
+
+Replace `windows` with `linuxbsd` or `macos` as needed. See the [Godot docs](https://docs.godotengine.org/en/stable/contributing/development/compiling/) for full build instructions.
+
+## License
+
+Same as Godot Engine — [MIT License](LICENSE.txt).
+
+
+

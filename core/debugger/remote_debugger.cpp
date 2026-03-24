@@ -30,6 +30,7 @@
 
 #include "remote_debugger.h"
 
+#include "core/config/engine.h"
 #include "core/config/project_settings.h"
 #include "core/debugger/debugger_marshalls.h"
 #include "core/debugger/engine_debugger.h"
@@ -38,6 +39,7 @@
 #include "core/input/input.h"
 #include "core/io/resource_loader.h"
 #include "core/math/expression.h"
+#include "core/object/class_db.h"
 #include "core/object/script_language.h"
 #include "core/os/os.h"
 #include "servers/display/display_server.h"
@@ -426,12 +428,12 @@ void RemoteDebugger::debug(bool p_can_continue, bool p_is_error_breakpoint) {
 	}
 	send_message("debug_enter", msg);
 
-	Input::MouseMode mouse_mode = Input::MOUSE_MODE_VISIBLE;
+	Input::MouseMode mouse_mode = Input::MouseMode::MOUSE_MODE_VISIBLE;
 
 	if (Thread::is_main_thread()) {
 		mouse_mode = Input::get_singleton()->get_mouse_mode();
-		if (mouse_mode != Input::MOUSE_MODE_VISIBLE) {
-			Input::get_singleton()->set_mouse_mode(Input::MOUSE_MODE_VISIBLE);
+		if (mouse_mode != Input::MouseMode::MOUSE_MODE_VISIBLE) {
+			Input::get_singleton()->set_mouse_mode(Input::MouseMode::MOUSE_MODE_VISIBLE);
 		}
 	} else {
 		MutexLock mutex_lock(mutex);
