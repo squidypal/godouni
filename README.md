@@ -18,6 +18,19 @@ Just for shits and giggles
 
 Godouni adds a GameObject + Component workflow on top of Godot's node system, making the engine feel more familiar to developers coming from Unity without changing any existing Godot functionality.
 
+### Important Note
+If you are unable to build your .Net project
+Go to your .csproj
+Change:
+```cs
+<Project Sdk="Godot.NET.Sdk/4.6.2-rc">
+```
+To:
+```cs
+<Project Sdk="Godot.NET.Sdk/4.6.2-rc.1">
+```
+It keeps switching up depending on the PC used, so keep this in mind.
+
 ## What's Different?
 
 ### GameObject Node
