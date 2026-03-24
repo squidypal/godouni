@@ -88,6 +88,12 @@ Don't expect this to be maintained along side actual godot but there are some th
 
 ## Building
 
+#### C# Version
+```bash
+scons platform=windows target=editor module_mono_enabled=yes -j12
+```
+
+#### GDScript Version:
 ```bash
 scons platform=windows target=editor -j$(nproc)
 ```
@@ -112,3 +118,6 @@ Replace `windows` with `linuxbsd` or `macos` as needed. See the [Godot docs](htt
 ## License
 
 Same as Godot Engine — [MIT License](LICENSE.txt).
+
+
+
