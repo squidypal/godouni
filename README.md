@@ -33,6 +33,11 @@ GameObject (selected in scene tree)
   +-- MyScript
 ```
 
+### What's planned?
+Don't expect this to be maintained along side actual godot but there are some things I want to do with this:
+- Total Renaming to Unity terms
+- That's about it actually
+
 ## Building
 
 ```bash
