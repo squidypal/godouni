@@ -8,7 +8,6 @@ Pronounced "Go-doe-you-knee"
 
 <img width="444" height="360" alt="Screenshot 2026-03-23 194109" src="https://github.com/user-attachments/assets/0117b6fc-8e50-4973-aea3-8b8050c3c416" />
 <img width="95" height="370" alt="Screenshot 2026-03-23 224452" src="https://github.com/user-attachments/assets/8f8b1ab8-c894-4322-8fee-6c3dcaff4b56" />
-<img width="285" height="217" alt="Screenshot 2026-03-23 194231" src="https://github.com/user-attachments/assets/145ef237-b7d2-4549-a282-d5e2e80ac56a" />
 <img width="397" height="158" alt="Screenshot 2026-03-23 224248" src="https://github.com/user-attachments/assets/bba33b20-85b5-4f64-a0a4-d1e054e61456" />
 <img width="280" height="165" alt="image" src="https://github.com/user-attachments/assets/863655c8-7d31-4bd1-aee3-9d03353dc400" />
 <img width="333" height="70" alt="Screenshot 2026-03-23 224521" src="https://github.com/user-attachments/assets/592766c8-0e68-4a81-85a5-72714a588f56" />
