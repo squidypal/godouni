@@ -2,13 +2,18 @@
 <img width="100" height="100" alt="GodouniLogo" src="https://github.com/user-attachments/assets/1a92ce67-62c7-4554-882d-b15dfd99bc79" />
 Pronounced "Go-doe-you-knee"
 
+
 **A Godot fork that brings Unity-style workflows to Godot engine.**
 
-<img width="444" height="363" alt="image" src="https://github.com/user-attachments/assets/bf744fb7-cd24-42f7-b1ff-91e1c0f416a2" />
-<img width="277" height="53" alt="image" src="https://github.com/user-attachments/assets/7dc72a83-9811-4800-be6f-999590dc96d5" />
-<img width="285" height="217" alt="image" src="https://github.com/user-attachments/assets/f0d3dd14-e9d3-4362-b0b6-ecd9e2667813" />
+<img width="444" height="360" alt="Screenshot 2026-03-23 194109" src="https://github.com/user-attachments/assets/0117b6fc-8e50-4973-aea3-8b8050c3c416" />
+
+<img width="95" height="370" alt="Screenshot 2026-03-23 224452" src="https://github.com/user-attachments/assets/8f8b1ab8-c894-4322-8fee-6c3dcaff4b56" />
+<img width="285" height="217" alt="Screenshot 2026-03-23 194231" src="https://github.com/user-attachments/assets/145ef237-b7d2-4549-a282-d5e2e80ac56a" />
+<img width="333" height="70" alt="Screenshot 2026-03-23 224521" src="https://github.com/user-attachments/assets/592766c8-0e68-4a81-85a5-72714a588f56" />
+<img width="397" height="158" alt="Screenshot 2026-03-23 224248" src="https://github.com/user-attachments/assets/bba33b20-85b5-4f64-a0a4-d1e054e61456" />
 
 ### Why?
+
 Just for shits and giggles
 
 Goduni adds a GameObject + Component workflow on top of Godot's node system, making the engine feel more familiar to developers coming from Unity — without changing any existing Godot functionality.
