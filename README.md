@@ -106,9 +106,6 @@ To make this system easier to use, when you need to access the GameObject the sc
 ```cs
 gameObject;
 ```
-```cs
-GetGameObject(); 
-```
 `GDScript`
 ```gdscript
 get_game_object()
