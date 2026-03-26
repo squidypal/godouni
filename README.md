@@ -23,6 +23,14 @@ When downloading new versions you may need to clear your NuGet cache:
 ```py
 dotnet nuget locals all --clear
 ```
+In order to use the engine in C# you must either run the included `IMPORTANT_SETUP.bat` or run this command:
+```bash
+@echo off
+dotnet nuget add source "%~dp0GodotSharp\Tools\nupkgs" --name "Local Godot SDK"
+echo Done! You can now open Godot.
+pause
+```
+
 #### Avoid using old projects on new verisons.
 
 ## What's Different?
